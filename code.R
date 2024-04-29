@@ -2,6 +2,10 @@
 # However, to earn a program certificate in Data Analysis for Life Sciences,
 # you must earn the Statistics and R course certificate.
 
+
+
+# Introduction to dplyr ---------------------------------------------------
+
 # Store raw data into objects
 dat <- read.csv("mice-data/femaleMiceWeights.csv")
 
@@ -29,4 +33,13 @@ url="https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata
 filename <- basename(url)
 download(url,filename)
 
+# Here is one way we can determine the average amount of sleep for primates
+dat <- read.csv("dagdata/msleep_ggplot2.csv")
+dat <- dat %>% filter(order == "Primates") %>%
+  select(sleep_total) %>% unlist()
+mean(dat)
 
+# Another way is to use the summarize() function
+dat <- read.csv("dagdata/msleep_ggplot2.csv")
+dat %>% filter(order == "Primates") %>% 
+  summarize(mean = mean(sleep_total))
